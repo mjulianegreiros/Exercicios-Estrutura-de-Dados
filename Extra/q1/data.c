@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "data.h"
-#include "compromisso.h"
+
 
 struct data{
     int dia;
@@ -23,13 +23,18 @@ Data *criarData(int dia , int mes , int ano){
     }
 }
 
+int obterDia(Data *d){
+    return d->dia;
+}
+int obterMes(Data *d){
+    return d->mes;
+}
+int obterAno(Data *d){
+    return d->ano;
+}
+
 void liberarData(Data *d){
     free(d);
     d = NULL;
 }
 
-void obterData(Compromisso *c , int *d , int *m , int *a){
-    *d = c->data.dia;
-    *m = c->data.mes;
-    *a = c->data.ano;
-}

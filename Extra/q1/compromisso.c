@@ -1,48 +1,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "data.h"
 #include "compromisso.h"
 
-
-
-struct horario{
-    int hora;
-    int minuto;
-};
 struct compromisso{
     Data *data;
-    Hora horario;
+    Hora *horario;
     char *descricao;
 };
 
-
-Hora *criarHora(int hora , int minuto){
-    Hora *h = (Hora *)malloc(sizeof(Hora));
-    if(h!=NULL){
-        h->hora = hora;
-        h->minuto = minuto;
-        return h;
-    } else{
-        printf("Nao foi possivel alocar memoria!");
-        return NULL;
-    }
-}
-void liberarHora(Hora *h){
-    free(h);
-    h = NULL;
-}
 
 Compromisso *criarCompromisso(Data *data , Hora *horario , char *descricao){
     Compromisso *c = (Compromisso *)malloc(sizeof(Compromisso));
     if(c!=NULL){
         // Passando os dados da data
-        c->data.dia = data->dia;
-        c->data.mes = data->mes;
-        c->data.ano = data->ano;
+        c->data = data;
         // Passando os dados do horario
-        c->horario.hora = horario->hora;
-        c->horario.minuto = horario->minuto;
+        c->horario = horario;
         // Passando a descricao
         c->descricao = descricao;
 
@@ -53,28 +27,29 @@ Compromisso *criarCompromisso(Data *data , Hora *horario , char *descricao){
     }
 }
 
-Hora obterHora(Compromisso *c){
-    return c->horario;
+void obterHora(Compromisso *c , int *h , int *m){
+    *h = obterHoras(c->horario);
+    *m = obterMinuto(c->horario);
 }
 char *obterDescricao(Compromisso *c){
     return c->descricao;
 }
 void desmarcarCompromisso(Compromisso *compromisso){
-    compromisso->data.dia = 0;
-    compromisso->data.mes = 0;
-    compromisso->data.ano = 0;
-    compromisso->horario.hora = 0;
-    compromisso->horario.minuto = 0;
+    compromisso->data = criarData(0 , 0 , 0);
+    compromisso->horario = criarHora(0 , 0);
 }
 Compromisso *adiarCompromisso(Compromisso *compromisso , Data *data , Hora *horario){
-    compromisso->data.dia = data->dia;
-    compromisso->data.mes = data->mes;
-    compromisso->data.ano = data->ano;
-    compromisso->horario.hora = horario->hora;
-    compromisso->horario.minuto = horario->minuto;
+    compromisso->data = data;
+    compromisso->horario = horario;
 }
 void liberarCompromisso(Compromisso *compromisso){
     free(compromisso);
     compromisso = NULL;
 }
+void obterData(Compromisso *c , int *d , int *m , int *a){
+    *d = obterDia(c->data);
+    *m = obterMes(c->data);
+    *a = obterAno(c->data);
+}
+
 
