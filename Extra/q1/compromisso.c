@@ -1,38 +1,21 @@
+
 #include <stdio.h>
 #include <stdlib.h>
+#include "data.h"
 #include "compromisso.h"
 
-struct data{
-    int dia;
-    int mes;
-    int ano;
-};
+
+
 struct horario{
     int hora;
     int minuto;
 };
 struct compromisso{
-    Data data;
+    Data *data;
     Hora horario;
     char *descricao;
 };
 
-Data *criarData(int dia , int mes , int ano){
-    Data *d = (Data *)malloc(sizeof(Data));
-    if(d!=NULL){
-        d->dia = dia;
-        d->mes = mes;
-        d->ano = ano;
-        return d;
-    } else{
-        printf("Nao foi possivel alocar memoria!");
-        return NULL;
-    }
-}
-void liberarData(Data *d){
-    free(d);
-    d = NULL;
-}
 
 Hora *criarHora(int hora , int minuto){
     Hora *h = (Hora *)malloc(sizeof(Hora));
@@ -69,6 +52,13 @@ Compromisso *criarCompromisso(Data *data , Hora *horario , char *descricao){
         return NULL;
     }
 }
+
+Hora obterHora(Compromisso *c){
+    return c->horario;
+}
+char *obterDescricao(Compromisso *c){
+    return c->descricao;
+}
 void desmarcarCompromisso(Compromisso *compromisso){
     compromisso->data.dia = 0;
     compromisso->data.mes = 0;
@@ -87,3 +77,4 @@ void liberarCompromisso(Compromisso *compromisso){
     free(compromisso);
     compromisso = NULL;
 }
+
