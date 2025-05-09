@@ -6,11 +6,11 @@
 typedef struct retangulo Retangulo;
 
 Retangulo* criarRetangulo(float largura , float altura);
-void liberarRetangulo(Retangulo r);
-void obterLargura(Retangulo r);
-void obterAltura(Retangulo r);
-void calcularArea(Retangulo r , float *area);
-void calcularPerimetro(Retangulo r , float *perimetro);
+void liberarRetangulo(Retangulo *r);
+float obterLargura(Retangulo *r);
+float obterAltura(Retangulo *r);
+float calcularArea(Retangulo *r );
+float  calcularPerimetro(Retangulo *r);
 
 
 
