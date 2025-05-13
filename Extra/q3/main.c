@@ -4,13 +4,14 @@
 
 void inverterPalavra(char p[] , char pReversa[]){
     int i = 0;
-    int j = strlen(p);
+    int j = strlen(p)-1;
     while(p[i]!='\0'){
         pReversa[j] = p[i];
         //printf("\ni: %d  j:%d" , i  , j);
         i++;
         j--;
     }
+    pReversa[j] = '\0';
     /*i=0;
     printf("%d" , strlen(pReversa));
     while(pReversa[i]!='\0'){
@@ -37,24 +38,25 @@ int ehPalidromaIterativa(char p[]){
 
 
 
-int ehPalindromaRecursiva(char p[] , int letra){
+int ehPalindromaRecursiva(char p[] , int posicao){
     char pRev[strlen(p)];
-    int i=letra;
-    inverterPalavra(pRev , p);
-    if(strlen(p)==0 || strlen(p)==1){
+    int i=posicao;
+    inverterPalavra(p , pRev);
+    //printf("\np:%s:\npRev: %s" , p , pRev);
+    if(i==strlen(p)){
         return 1;
     }else{
         if(p[i]!=pRev[i]){
             return 0;
-        }else{
-            i++;
-            return ehPalindromaRecursiva(p , i);
         }
+        i++;
+        return ehPalindromaRecursiva(p , i);
+        
     }
 }
 
 int main(){
-    char palavra[] = "banana";
+    char palavra[] = "barata";
     printf("%d\n" , ehPalindromaRecursiva(palavra , 0));
     
     return 0;
