@@ -40,23 +40,21 @@ int ehPalidromaIterativa(char p[]){
 
 int ehPalindromaRecursiva(char p[] , int posicao){
     char pRev[strlen(p)];
-    int i=posicao;
     inverterPalavra(p , pRev);
     //printf("\np:%s:\npRev: %s" , p , pRev);
-    if(i==strlen(p)){
+    if(posicao==strlen(p)){
         return 1;
     }else{
-        if(p[i]!=pRev[i]){
+        if(p[posicao]!=pRev[posicao]){
             return 0;
         }
-        i++;
-        return ehPalindromaRecursiva(p , i);
+        return ehPalindromaRecursiva(p , posicao+1);
         
     }
 }
 
 int main(){
-    char palavra[] = "barata";
+    char palavra[] = "ana";
     printf("%d\n" , ehPalindromaRecursiva(palavra , 0));
     
     return 0;
