@@ -41,7 +41,7 @@ int mdc(int n , int d){
     if(d==0){
         return n;
     } else{
-        return(d , n%d);
+        return mdc(d , n%d);
     }
 }
 
