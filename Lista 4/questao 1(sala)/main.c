@@ -120,6 +120,43 @@ void inserirMeio(Lista *l , int num , int posicao){
     
 }
 
+// remover da lista
+/*
+    lógica para remover da lista
+    o nó anterior tem que apontar para o nó que o deletado está apontando
+*/
+void removerElemento(Lista *l  , int num){
+    No *aux = l->inicio;
+    if(aux==NULL){
+        printf("\nA lista está vazia.");
+        return;
+    } else{
+        while(aux->dados!=num){
+            aux = aux->prox;
+        }
+        No *deletado = aux; // armazena o endereço do nó deletado
+        No *aux2 = aux->prox; // armazena o que o deletado está apontando
+
+        if(deletado == l->inicio) {
+            l->inicio = aux2;
+            free(deletado);
+            return;
+        }
+        aux = l->inicio;
+        while(aux!=deletado){
+            if(aux->prox==deletado){
+                aux->prox = aux2;
+                free(deletado);
+                break;
+            } else {
+                aux = aux->prox;
+            }
+        }
+
+
+    }
+}
+
 
 int main(){
     Lista *l = criarLista();
@@ -131,6 +168,15 @@ int main(){
     percorrerLista(l);
     inserirMeio(l , 81 , 2);
     percorrerLista(l);
+    removerElemento(l , 3);
+    percorrerLista(l);
+    removerElemento(l , 81);
+    percorrerLista(l);
+    removerElemento(l , 27);
+    percorrerLista(l);
+    removerElemento(l , 9);
+    percorrerLista(l);
+    removerElemento(l , 9);
     printf("\n");
     return 0;
 }
