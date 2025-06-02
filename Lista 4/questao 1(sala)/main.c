@@ -57,7 +57,7 @@ void inserirComeco(Lista *l , int num){
         l->tamanho++;
     } else {
         printf("\nErro ao alocar memoria.");
-        exit(1);
+        return;
     }
 }
 
@@ -85,6 +85,7 @@ void inserirFinal(Lista *l , int num){
         l->tamanho++;
     } else{
         printf("\nNao foi possivel alocar memoria.");
+        return;
     }
 }
 
@@ -116,6 +117,26 @@ void inserirMeio(Lista *l , int num , int posicao){
 
     }else{
         printf("\nErro ao alocar memoria.");
+        return;
+    }
+    
+}
+
+// remover elemento da lista
+void removerElemento(Lista *l , int num){
+    No *aux = l->inicio;
+    if(l->inicio == NULL){
+        printf("\nLista vazia.");
+        return;
+    } else{
+        while(aux->dados!=num){
+            aux = aux->prox;
+        }
+        No *aux2 = aux->prox;
+        aux2->prox
+        free(aux2);
+        return;
+
     }
     
 }
@@ -130,6 +151,8 @@ int main(){
     inserirMeio(l , 27 , 2);
     percorrerLista(l);
     inserirMeio(l , 81 , 2);
+    percorrerLista(l);
+    removerElemento(l , 81);
     percorrerLista(l);
     printf("\n");
     return 0;
