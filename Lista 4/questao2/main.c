@@ -11,13 +11,14 @@
         • Percorrer e imprimir a lista após a remoção.
         • Remover o primeiro livro da lista.
         • Percorrer e imprimir a lista.
-        • Remover o último livro d alista até que a lista esteja vazia.
+        • Remover o último livro da lista até que a lista esteja vazia.
         • Percorrer e imprimir a lista (deve estar vazia).
         • Tentar remover um livro de uma lista vazia.
         • Tentar remover um livro que não existe em uma lista não vazia(após as remoções).
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct livro{
     char *titulo;
@@ -51,9 +52,9 @@ void inserirInicio(Lista *l , Livro livro){
     No *no = (No *)malloc(sizeof(No));
 
     if(no){
-        l->inicio = no;
         no->livro = livro;
-        no->prox = NULL;
+        no->prox = l->inicio;
+        l->inicio = no;
         l->tamanho++;
         return; // testeee
     }
@@ -66,14 +67,13 @@ void exibirLista(Lista *l){
     
     if(aux!=NULL){
         while(aux!=NULL){
-            printf("\nTitulo: %s  Autor: %s" , l.titulo , l.autor);
-            Livro l = aux->livro;
+            Livro livro = aux->livro;
+            printf("\nTitulo: %s  Autor: %s" , livro.titulo , livro.autor);
             aux = aux->prox;
-        } return;
+        }
+    } else{
+        printf("\nA lista esta vazia.");
     }
-    
-    printf("\nA lista esta vazia.");
-    return;
 }
 
 void encontrarLivro(Lista *l , char *titulo){
@@ -81,20 +81,59 @@ void encontrarLivro(Lista *l , char *titulo){
 
     if(aux!=NULL){
         Livro l = aux->livro;
-        while(aux!=NULL && titulo!=l.titulo){
+        while(aux!=NULL){
+            if(strcmp(titulo , l.titulo)==0){
+                printf("\nLivro encontrado na lista no endereco: %p." , (void *)aux);
+                return;
+            }
             aux = aux->prox;
             l = aux->livro;
         }
-        if(aux==NULL){
-            printf("\nLivro não encontrado.");
-            return;
-        } else{
-            printf("\nLivro encontrado na lista no endereco: %p." , &aux);
+        printf("\nLivro não encontrado.");
+    } else{
+        printf("\nA lista esta vazia.");
+    }
+    
+}
+
+void removerLivro(Lista *l , char *titulo){
+    No *aux = l->inicio;
+    int flag = 0;
+
+    if(aux!=NULL){
+        while(aux!=NULL){
+            if(strcmp(titulo , aux->livro.titulo)==0){
+                flag = 1;
+                No *aux2 = aux->prox;
+                No *deletado = aux;
+
+                if(deletado==l->inicio){
+                    l->inicio = aux2;
+                    free(deletado);
+                    printf("\nLivro removido.");
+                    return;
+                } else{
+                    aux = l->inicio;
+
+                    while(aux->prox!=deletado){
+                        aux = aux->prox;
+                    }
+                    aux->prox = aux2;
+                    free(deletado);
+                    printf("\nLivro removido.");
+                    return;
+                }
+            }
+            aux = aux->prox;
+        }
+        if(!flag){
+            printf("\nLivro não encontrado");
             return;
         }
     }
     printf("\nA lista esta vazia.");
     return;
+    
 }
 
 
@@ -109,12 +148,13 @@ int main(){
     b2.titulo = "seca";
     b3.autor = "jadiel";
     b3.titulo = "amore";
+    encontrarLivro(l1 , b2.titulo);
     inserirInicio(l1 , l);
     //exibirLista(l1);
     inserirInicio(l1 , b2);
     //exibirLista(l1);
     inserirInicio(l1 , b3);
+    encontrarLivro(l1 , b2.titulo);
     exibirLista(l1);
-
     return 0;
 }
