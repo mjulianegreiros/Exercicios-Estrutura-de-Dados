@@ -133,7 +133,7 @@ void removerElemento(Lista *l , int num){
             aux = aux->prox;
         }
         No *aux2 = aux->prox;
-        aux2->prox
+        aux2->prox;
         free(aux2);
         return;
 
@@ -189,10 +189,8 @@ int main(){
     percorrerLista(l);
     inserirMeio(l , 81 , 2);
     percorrerLista(l);
-<<<<<<< HEAD
     removerElemento(l , 81);
     percorrerLista(l);
-=======
     removerElemento(l , 3);
     percorrerLista(l);
     removerElemento(l , 81);
@@ -202,7 +200,6 @@ int main(){
     removerElemento(l , 9);
     percorrerLista(l);
     removerElemento(l , 9);
->>>>>>> ff585ef35da83a1e0859bf32db0c747a961cd8db
     printf("\n");
     return 0;
 }
