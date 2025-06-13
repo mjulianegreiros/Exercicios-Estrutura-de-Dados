@@ -1,23 +1,19 @@
-#include <stdio.h>
+/*
+    02. Implemente em C as operações de remoção para a lista duplamente encadeada definida no exercício anterior.
+    Utilize as mesmas estruturas Aluno, No e Lista. Implemente as seguintes funções de remoção, seguindo
+    os protótipos sugeridos:
+    a. Remoção do aluno no início da lista.
+        void remove_inicio(Lista* l);
+    b. Remoção do aluno no fim da lista.
+        void remove_fim(Lista* l);
+    c. Remoção de um aluno por sua matrícula: a função deve buscar pelo aluno com a matrícula fornecida
+    e removê-lo da lista.
+        int remove_por_matricula(Lista* l, int matricula);
+    d. Remoção de alunos duplicados: percorra todos os nós da lista para identificar matrículas duplicadas
+    e, caso encontre, remova um deles.
+*/
+# include <stdio.h>
 #include <stdlib.h>
-
-/*01. Implemente em C as operações de criação e inserção para um sistema de gerenciamento de alunos usando
-uma lista duplamente encadeada. A lista deverá armazenar a matrícula (inteiro) e o nome de cada aluno.
-Implemente as seguintes funções, seguindo os protótipos sugeridos:
-a. Criação de uma lista vazia. 
-Lista* cria_lista();
-b. Inserção de um novo aluno no início da lista.
-void insere_inicio(Lista* l, int matricula, const char* nome);
-c. Inserção de um novo aluno no fim da lista.
-void insere_fim(Lista* l, int matricula, const char* nome);
-d. Inserção de um novo aluno após uma matrícula específica: a função deve buscar por um aluno com
-a matricula e, se encontrar, inserir o novo aluno logo após ele.
-int insere_apos_matricula(Lista* l, int matricula, int nova_matricula, const char*
-novo_nome);
-A função deve retornar 1 em caso de sucesso e 0 se a matricula não for encontrada.
-e. Impressão da lista de alunos: para cada aluno, imprima a matrícula e o nome. A impressão pode ser
-feita do início para o fim.
-void imprime_lista(Lista* l);*/
 
 typedef struct aluno{
     int matricula;
@@ -114,6 +110,60 @@ int inserirMeio(Lista *lista , int matricula , Aluno aluno){
     }
 }
 
+void removeElemento(Lista *lista , int matricula){
+    No *aux = lista->inicio;
+
+    while(aux!=NULL && aux->aluno.matricula != matricula){
+        aux = aux->prox;
+    }
+
+    if(aux==NULL){
+        if(lista->inicio == NULL){
+            printf("\nA lista esta vazia.");
+            return;
+        }
+        printf("\nMatricula nao encontrada.");
+        return;
+    }
+
+    // Removendo do inicio
+    /*if(aux == lista->inicio){
+        lista->inicio = aux->prox;
+        if(aux->prox!=NULL){
+            aux->prox->anterior = NULL;
+        }
+    } else{
+        aux->anterior->prox = aux->prox;
+    }*/
+
+    if(aux->anterior != NULL) {
+        aux->anterior->prox = aux->prox;
+    } else {
+        lista->inicio = aux->prox;
+    }
+
+    if(aux->prox != NULL) {
+        aux->prox->anterior = aux->anterior;
+    } else {
+        lista->fim = aux->anterior;
+    }
+    No *aux2 = aux;
+    // Removendo fim
+    if(aux2 == lista->fim){
+        lista->fim = aux2->anterior;
+        if(aux2->anterior!=NULL){
+            aux2->anterior->prox = NULL;
+        }
+    } else{
+        aux2->prox->anterior = aux2->anterior;
+    }
+
+    free(aux);
+    //free(aux2);
+    return;
+
+}
+
 void exibirLista(Lista *lista){
     No *aux = lista->inicio;
     if(!aux){
@@ -130,7 +180,7 @@ void exibirLista(Lista *lista){
 
 int main(){
     Lista *l1 = criarLista();
-    Aluno a1 , a2 , a3 , a4;
+    Aluno a1 , a2 , a3 , a4 , a5;
     a1.matricula = 1;
     a1.nome = "joaozinho";
     a2.matricula = 2;
@@ -139,17 +189,24 @@ int main(){
     a3.nome = "pedrinho";
     a4.matricula = 4;
     a4.nome = "jadiel";
-    exibirLista(l1);
+    a5.matricula = 5;
+    a5.nome = "tiago";
+    //exibirLista(l1);
     inserirInicio(l1 , a1);
     //exibirLista(l1);
     inserirInicio(l1 , a2);
-    exibirLista(l1);
-    printf("\n\n");
-    inserirFim(l1 , a3);
-    inserirInicio(l1 , a3);
-    exibirLista(l1);
-    printf("\n %d  " , inserirMeio(l1 , 5 , a4));
     //exibirLista(l1);
+    //printf("\n\n");
+    inserirFim(l1 , a3);
+    //exibirLista(l1);
+    printf("\n%d  " , inserirMeio(l1 , 2 , a4));
+    inserirFim(l1 , a5);
+    //exibirLista(l1);
+    //printf("\n\n");
+    exibirLista(l1);
+    removeElemento(l1 , 1);
+    printf("\n\n");
+    exibirLista(l1);
     
     return 0;
 }
