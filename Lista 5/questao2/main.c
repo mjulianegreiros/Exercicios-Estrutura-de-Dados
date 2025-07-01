@@ -147,19 +147,18 @@ void removeElemento(Lista *lista , int matricula){
     } else {
         lista->fim = aux->anterior;
     }
-    No *aux2 = aux;
     // Removendo fim
-    if(aux2 == lista->fim){
-        lista->fim = aux2->anterior;
-        if(aux2->anterior!=NULL){
-            aux2->anterior->prox = NULL;
+    if(aux == lista->fim){
+        lista->fim = aux->anterior;
+        if(aux->anterior!=NULL){
+            aux->anterior->prox = NULL;
         }
     } else{
-        aux2->prox->anterior = aux2->anterior;
+        aux->prox->anterior = aux->anterior;
     }
 
     free(aux);
-    //free(aux2);
+    
     return;
 
 }
