@@ -77,6 +77,7 @@ void inserirFim(Lista *lista , Aluno aluno){
             no->prox = NULL;
             no->anterior = aux;
             aux->prox = no;
+            lista->fim = no;
             return;
         }
     }
@@ -126,30 +127,26 @@ void removeElemento(Lista *lista , int matricula){
         return;
     }
 
-    // Removendo do inicio
-    /*if(aux == lista->inicio){
+    
+    if(aux == lista->inicio){
         lista->inicio = aux->prox;
         if(aux->prox!=NULL){
             aux->prox->anterior = NULL;
         }
     } else{
+        printf("\nAux->prox: %p" , aux->prox);
+        printf("\nFim da lista: %p" , lista->fim);
         aux->anterior->prox = aux->prox;
-    }*/
-
-    if(aux->anterior != NULL) {
-        aux->anterior->prox = aux->prox;
-    } else {
-        lista->inicio = aux->prox;
     }
-
-    if(aux->prox != NULL) {
-        aux->prox->anterior = aux->anterior;
-    } else {
+    if(aux == lista->fim){
         lista->fim = aux->anterior;
+<<<<<<< HEAD
     }
     // Removendo fim
     if(aux == lista->fim){
         lista->fim = aux->anterior;
+=======
+>>>>>>> 8b76aab32cd8901a4f671a365d9c63894d2684ef
         if(aux->anterior!=NULL){
             aux->anterior->prox = NULL;
         }
@@ -158,7 +155,10 @@ void removeElemento(Lista *lista , int matricula){
     }
 
     free(aux);
+<<<<<<< HEAD
     
+=======
+>>>>>>> 8b76aab32cd8901a4f671a365d9c63894d2684ef
     return;
 
 }
