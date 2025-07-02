@@ -31,6 +31,7 @@ int inserirMeio(Lista *lista , int parametro , int matricula , char *nome){
     
     No *aux = lista->inicio;
 
+    // caso a lista esteja vazia
     if(lista->inicio==NULL){
         lista->inicio = no;
         lista->fim = no;
@@ -52,16 +53,20 @@ int inserirMeio(Lista *lista , int parametro , int matricula , char *nome){
         return 0;
     }
 
-    if(aux==lista->inicio){
-        
+    
+    if(aux->prox == NULL){ // tá no fim da lista
+        aux->prox = no;
+        no->prox = NULL;
+        lista->fim = no;
     } else{
-        
-    }
+        aux->prox->ant = no;
+        no->prox = aux->prox;
+        aux->prox = no;
+    }   
 
-    /*no->prox = aux->prox;
     no->ant = aux;
-    aux->prox->ant = no;
-    aux->prox = no;*/
+   
+    
     return 1;
 
 }

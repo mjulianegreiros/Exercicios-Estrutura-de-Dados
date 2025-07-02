@@ -18,6 +18,10 @@ int main(){
 
     inserirMeio(l , 0 , 1 , "maria");
     inserirMeio(l , 1 , 2 , "pedro");
+    inserirMeio(l , 1 , 3 , "carlos");
+    inserirMeio(l , 1 , 4 , "joao");
+
+    printf("Soma: %d" , somaMatriculas(l->inicio));
 
     exibirLista(l);
     printf("\n\n");
