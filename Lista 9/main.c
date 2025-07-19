@@ -5,28 +5,26 @@
 
 void juntar(int *vet , int inicio , int meio , int fim){
     int i , j , k , aux; 
-    int tam1 = meio-inicio;
-    int tam2 = fim - (meio+1);
+    int tam1 = meio-inicio+1;
+    int tam2 = fim - meio;
 
     int aux1[tam1] , aux2[tam2]; // vetores auxiliares
 
-    k=0; // garantindo que não teremos lixo de memória
+
     // copiando os dados do vetor original para os vetores auxiliares
     for(i=0;i<tam1;i++){
-        aux1[i] = vet[k];
-        k++;
+        aux1[i] = vet[inicio + i];
     }
     //k++; // incrementa pra acessar o próximo
     for(j=0;j<tam2;j++){
-        aux2[i] = vet[k];
-        k++;
+        aux2[j] = vet[meio + 1 + j];
     }
 
     // zera tudoo
-    i=0; k=0; j=0;
+    i=0; k=inicio; j=0;
 
     // momento de trocar, vei
-    if(i<tam1 && i<tam2){ // enquanto ainda houver coisas para percorrer nos dois vetores
+    while(i<tam1 && i<tam2){ // enquanto ainda houver coisas para percorrer nos dois vetores
         if(aux1[i]<aux2[j]){
             vet[k] = aux1[i];
             i++;
@@ -52,11 +50,11 @@ void mergeSort(int *vet, int inicio , int fim){
     // inicio e fim são indices
     if(inicio<fim){ // ainda tem coisa para percorrer no vetor(nosso caso base)
         // definindo onde o vetor vai ser dividido
-        int meio = inicio - (fim+inicio)/2;
+        int meio = (fim+inicio)/2;
 
-        printf("\ni: %d , m : %d , f: %d" , inicio , meio , fim);
 
         mergeSort(vet , inicio , meio); // passando o lado esquerdo do vetor
+        // printf("\ni: %d , m : %d , f: %d" , inicio , meio , fim);
         mergeSort(vet , meio+1 , fim); // passando o lado direito do vetor
         
         juntar(vet , inicio , meio , fim);
