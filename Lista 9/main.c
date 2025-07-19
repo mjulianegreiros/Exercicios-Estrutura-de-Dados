@@ -13,18 +13,18 @@ void juntar(int *vet , int inicio , int meio , int fim){
 
     // copiando os dados do vetor original para os vetores auxiliares
     for(i=0;i<tam1;i++){
-        aux1[i] = vet[inicio + i];
+        aux1[i] = vet[inicio + i]; // gera um vetor auxiliar apenas com o subvetor passado
     }
     //k++; // incrementa pra acessar o próximo
     for(j=0;j<tam2;j++){
-        aux2[j] = vet[meio + 1 + j];
+        aux2[j] = vet[meio + 1 + j]; // gera um vetor auxiliar apenas com o subvetor passado
     }
 
     // zera tudoo
-    i=0; k=inicio; j=0;
+    i=0; k=inicio; j=0; // k=inicio pois vai modificar apenas o que foi passado
 
     // momento de trocar, vei
-    while(i<tam1 && i<tam2){ // enquanto ainda houver coisas para percorrer nos dois vetores
+    while(i<tam1 && j<tam2){ // enquanto ainda houver coisas para percorrer nos dois vetores
         if(aux1[i]<aux2[j]){
             vet[k] = aux1[i];
             i++;
